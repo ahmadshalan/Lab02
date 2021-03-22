@@ -21,6 +21,7 @@ img{
 
 div{
 margin-right: 10px;
+margin-top: 20px;
 padding: 30px;
 float: right;
 border-style: solid;
@@ -28,4 +29,15 @@ border-color: black 5px;
 width: 200px;
 height: 300px;
 
+}
+
+footer{
+
+    
+    text-align: center; 
+    margin-top: 1950px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+ 
 }
