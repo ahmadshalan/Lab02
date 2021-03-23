@@ -11,10 +11,8 @@ function photo( image_url, title, description , keyword , horns ) {
     this.keyword=keyword;
     this.horns=horns;
     this.id = inx;
-
     objArr.push(this);
 }
-
 
 let photoSection;
 photo.prototype.render = function() {
@@ -24,25 +22,24 @@ photo.prototype.render = function() {
     photoSection.find('img').attr('src', this.image_url);
     photoSection.find('p').html(this.description+ ' '+ 'keyword '+this.keyword+ '' + ' no. of horns ' + ''+ this.horns);
     photoSection.removeAttr('id');
-
     photoSection.attr('id', this.id);
     inx++;
 
 }
 
 photo.prototype.addOption = function(){ 
-    if (!keyword.includes(this.key)){
+    if (!keyword.includes(this.keyword)){
 
-        keyword.push(this.key)
+        keyword.push(this.keyword)
         let newOption = $('<option></option>');
         $('#select').append(newOption);
-        newOption.text(this.key);
+        newOption.text(this.keyword);
 }}
 
-function renderSelect () {
+function Select1 () {
     $('#select').on('click', function(){
         for (let i = 0; i<inx; i++){
-            if (objArr[i].key == $('#select').val()) {
+            if (objArr[i].keyword == $('#select').val()) {
                 $('#'+i).show();
             }else{
                 if($('#select').val() == 'default'){
@@ -54,21 +51,17 @@ function renderSelect () {
     })
 }
 
-
-
 function getPhotoData() {
-
     const ajaxSettings = {
         method: 'get',
         dataType: 'json'
     }
-  
-    $.ajax('page-1.json', ajaxSettings).then(data=> {
+
+    $.ajax('jason/page-1.json', ajaxSettings).then(data=> {
         
         console.log(data);
        
         data.forEach(element=> {
-
 
             let Obj = new photo(element.image_url, element.title,element.description,element.keyword,element.horns);
             Obj.render();
@@ -79,7 +72,10 @@ function getPhotoData() {
 }
 
 $('document').ready(getPhotoData);
-renderSelect();
+Select1();
+
+
+
 
 
 
