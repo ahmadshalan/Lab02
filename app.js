@@ -74,6 +74,28 @@ function getPhotoData() {
 $('document').ready(getPhotoData);
 Select1();
 
+function getPhotoData2() {
+    const ajaxSettings = {
+        method: 'get',
+        dataType: 'json'
+    }
+
+    $.ajax('jason/page-2.json', ajaxSettings).then(data=> {
+        
+        console.log(data);
+       
+        data.forEach(element=> {
+
+            let Obj = new photo(element.image_url, element.title,element.description,element.keyword,element.horns);
+            Obj.render();
+            Obj.addOption();
+        });
+        
+    })
+}
+$('document').ready(getPhotoData2);
+Select1();
+
 
 
 
