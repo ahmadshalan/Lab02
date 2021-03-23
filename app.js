@@ -1,5 +1,8 @@
 'use strict';
 
+let objArr=[];
+let keyword = [];
+let inx = 0;
 function photo( image_url, title, description , keyword , horns ) {
    
     this.image_url = image_url;
@@ -7,16 +10,51 @@ function photo( image_url, title, description , keyword , horns ) {
     this.description=description;
     this.keyword=keyword;
     this.horns=horns;
+    this.id = inx;
+
+    objArr.push(this);
 }
 
+
+let photoSection;
 photo.prototype.render = function() {
-    let photoSection = $('#photo-template').clone();
+    photoSection = $('#photo-template').clone();
     $('main').append(photoSection);
     photoSection.find('h2').text(this.title);
     photoSection.find('img').attr('src', this.image_url);
     photoSection.find('p').html(this.description+ ' '+ 'keyword '+this.keyword+ '' + ' no. of horns ' + ''+ this.horns);
     photoSection.removeAttr('id');
+
+    photoSection.attr('id', this.id);
+    inx++;
+
 }
+
+photo.prototype.addOption = function(){ 
+    if (!keyword.includes(this.key)){
+
+        keyword.push(this.key)
+        let newOption = $('<option></option>');
+        $('#select').append(newOption);
+        newOption.text(this.key);
+}}
+
+function renderSelect () {
+    $('#select').on('click', function(){
+        for (let i = 0; i<inx; i++){
+            if (objArr[i].key == $('#select').val()) {
+                $('#'+i).show();
+            }else{
+                if($('#select').val() == 'default'){
+                    $('#'+i).show();
+                }else{
+                $('#'+i).hide();
+            }}
+        }
+    })
+}
+
+
 
 function getPhotoData() {
 
@@ -31,33 +69,18 @@ function getPhotoData() {
        
         data.forEach(element=> {
 
-            
-            let option = $('<option>').text(element.keyword);
 
             let Obj = new photo(element.image_url, element.title,element.description,element.keyword,element.horns);
             Obj.render();
+            Obj.addOption();
         });
         
     })
 }
 
 $('document').ready(getPhotoData);
+renderSelect();
 
-
-$(document).ready(function() {
-
-    let selectOption= $('default');
-
-    console.log(this.keyword);
-
-    
-
-    $('default').on('click', function() {
-        
-        $(this).siblings('ul').toggleClass('on');
-        
-    });
-});
 
 
 
