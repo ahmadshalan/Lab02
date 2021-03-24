@@ -58,11 +58,9 @@ function getPhotoData() {
     }
 
     $.ajax('jason/page-1.json', ajaxSettings).then(data=> {
-        
         console.log(data);
-       
+    
         data.forEach(element=> {
-
             let Obj = new photo(element.image_url, element.title,element.description,element.keyword,element.horns);
             Obj.render();
             Obj.addOption();
