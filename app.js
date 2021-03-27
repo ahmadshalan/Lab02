@@ -72,6 +72,21 @@ function getPhotoData() {
 $('document').ready(getPhotoData);
 Select1();
 
+function Select2 () {
+    $('#select').on('click', function(){
+        for (let i = 0; i<inx; i++){
+            if (objArr[i].keyword == $('#select').val()) {
+                $('#'+i).show();
+            }else{
+                if($('#select').val() == 'default'){
+                    $('#'+i).show();
+                }else{
+                $('#'+i).hide();
+            }}
+        }
+    })
+}
+
 function getPhotoData2() {
     const ajaxSettings = {
         method: 'get',
@@ -92,12 +107,26 @@ function getPhotoData2() {
     })
 }
 $('document').ready(getPhotoData2);
-Select1();
+Select2();
 
 
+function sortByTitle(objArr){
+    objArr.sort((a,b)=>{
+        if(a.title < b.title){
+            return -1;
+        } else if (a.title == b.title){
+            return 0;
+        }else if (a.title > b.title){
+            return 1
+        }
+    })
+}
 
-
-
+function sortByHorns(objArr){
+    objArr.sort((a,b) =>{
+        return a.horns - b.horns;
+    });
+}
 
 
 
